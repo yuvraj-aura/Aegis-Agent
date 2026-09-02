@@ -1,0 +1,82 @@
+[
+  {
+    "code": "10.4",
+    "network": "Visa",
+    "mastercard_equivalent": "4837",
+    "official_name": "Other Fraud — Card-Absent Environment (CNP Fraud)",
+    "category": "Fraud",
+    "cardholder_claim": "Cardholder claims they did not participate in or authorize the transaction.",
+    "evidence_required": [
+      "avs_cvv_match",
+      "device_ip_match",
+      "prior_order_history",
+      "customer_comm_log"
+    ]
+  },
+  {
+    "code": "13.1",
+    "network": "Visa",
+    "mastercard_equivalent": "4855",
+    "official_name": "Merchandise or Services Not Received",
+    "category": "Customer Dispute",
+    "cardholder_claim": "Cardholder claims merchandise or service was not provided or delivered.",
+    "evidence_required": [
+      "delivery_tracking",
+      "carrier_delivery_confirmation",
+      "customer_comm_log"
+    ]
+  },
+  {
+    "code": "13.3",
+    "network": "Visa",
+    "mastercard_equivalent": "4853",
+    "official_name": "Not as Described / Defective Merchandise",
+    "category": "Customer Dispute",
+    "cardholder_claim": "Cardholder claims the goods arrived damaged, defective, or not as depicted.",
+    "evidence_required": [
+      "product_listing_snapshot",
+      "delivery_confirmation",
+      "customer_comm_log",
+      "return_policy_ack"
+    ]
+  },
+  {
+    "code": "13.2",
+    "network": "Visa",
+    "mastercard_equivalent": "4841",
+    "official_name": "Canceled Recurring",
+    "category": "Customer Dispute",
+    "cardholder_claim": "Cardholder claims recurring transaction was billed after cancellation request.",
+    "evidence_required": [
+      "cancellation_policy_ack",
+      "billing_history",
+      "customer_comm_log"
+    ]
+  },
+  {
+    "code": "13.6",
+    "network": "Visa",
+    "mastercard_equivalent": "4859",
+    "official_name": "Credit Not Processed",
+    "category": "Customer Dispute",
+    "cardholder_claim": "Cardholder claims merchant agreed to issue a refund/credit but never processed it.",
+    "evidence_required": [
+      "refund_policy_ack",
+      "cancellation_terms",
+      "customer_comm_log"
+    ]
+  },
+  {
+    "code": "12.6.1",
+    "network": "Visa",
+    "mastercard_equivalent": "4834",
+    "official_name": "Duplicate Processing",
+    "category": "Processing Error",
+    "cardholder_claim": "Single transaction was processed multiple times to the cardholder account.",
+    "evidence_required": [
+      "transaction_log",
+      "avs_cvv_match",
+      "customer_comm_log"
+    ]
+  }
+]

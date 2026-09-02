@@ -1,0 +1,16 @@
+{
+  "name": "aegis-agent-backend",
+  "version": "1.0.0",
+  "description": "Aegis AI Risk Manager Backend Server & Deterministic Chargeback Workflow",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node eval.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5"
+  }
+}
