@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dispute Worklist - Aegis Forensic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#0b1326",
+                        "surface-dim": "#0b1326",
+                        "on-tertiary-container": "#3e2400",
+                        "secondary": "#4edea3",
+                        "inverse-surface": "#dae2fd",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary": "#472a00",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-lowest": "#060e20",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-on-surface": "#283044",
+                        "on-primary": "#002e6a",
+                        "primary": "#adc6ff",
+                        "surface-container-highest": "#2d3449",
+                        "on-background": "#dae2fd",
+                        "outline": "#8c909f",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-variant": "#2d3449",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-container-low": "#131b2e",
+                        "on-secondary-container": "#00311f",
+                        "error-container": "#93000a",
+                        "background": "#0b1326",
+                        "inverse-primary": "#005ac2",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed": "#d8e2ff",
+                        "on-primary-container": "#00285d",
+                        "surface-container": "#171f33",
+                        "outline-variant": "#424754",
+                        "primary-container": "#4d8eff",
+                        "on-secondary": "#003824",
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#ca8100",
+                        "surface-container-high": "#222a3d",
+                        "surface-bright": "#31394d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-surface": "#dae2fd",
+                        "on-primary-fixed": "#001a42",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-fixed-variant": "#004395",
+                        "secondary-container": "#00a572",
+                        "tertiary": "#ffb95f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "gutter": "16px",
+                        "margin": "24px"
+                    },
+                    "fontFamily": {
+                        "data-lg": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-md": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .circular-chart { display: block; margin: 0 auto; max-width: 80%; max-height: 250px; }
+        .circle-bg { fill: none; stroke: theme('colors.surface-container-high'); stroke-width: 4; }
+        .circle { fill: none; stroke-width: 4; stroke-linecap: round; }
+        .tertiary-gauge { stroke: theme('colors.tertiary'); }
+        .primary-gauge { stroke: theme('colors.primary'); }
+        .secondary-gauge { stroke: theme('colors.secondary'); }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col h-full py-margin px-4 z-50">
+<div class="flex items-center gap-3 mb-10 pl-2">
+<span class="material-symbols-outlined text-primary text-3xl">fingerprint</span>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">Aegis</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Forensic Logic</p>
+</div>
+</div>
+<div class="flex-grow flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">security</span>
+<span class="font-body-md text-body-md">Risk Command Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-primary bg-primary-container/10 border-r-2 border-primary opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-body-md text-body-md">Dispute Worklist</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+<span class="font-body-md text-body-md">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">csv</span>
+<span class="font-body-md text-body-md">Aegis DNA</span>
+</a>
+</div>
+<button class="w-full bg-primary text-on-primary font-body-sm text-body-sm font-semibold h-10 rounded mt-auto flex items-center justify-center gap-2 hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            New Investigation
+        </button>
+</nav>
+<!-- Main Content Area -->
+<div class="ml-64 w-[calc(100%-16rem)] flex flex-col h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-outline-variant flex justify-between items-center px-gutter h-16 z-40">
+<div class="flex items-center gap-4 w-96">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container text-on-surface border border-outline-variant rounded-md pl-10 pr-4 py-1.5 font-body-sm text-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant" placeholder="Search Worklist..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:ring-1 focus:ring-primary rounded p-1">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:ring-1 focus:ring-primary rounded p-1">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:ring-1 focus:ring-primary rounded p-1">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden ml-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">person</span>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-grow mt-16 p-margin overflow-auto bg-background">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Dispute Worklist</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Prioritized queue requiring analyst adjudication.</p>
+</div>
+<div class="flex gap-2">
+<button class="h-8 px-3 border border-outline-variant rounded text-on-surface-variant font-body-sm text-body-sm flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+                        Filter
+                    </button>
+<button class="h-8 px-3 border border-outline-variant rounded text-on-surface-variant font-body-sm text-body-sm flex items-center gap-2 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+                        Sort
+                    </button>
+</div>
+</div>
+<!-- Aegis Insights Header -->
+<div class="bg-surface-container border border-surface-container-high border-l-2 border-l-primary rounded p-4 mb-6 flex gap-4 items-start">
+<span class="material-symbols-outlined text-primary mt-0.5">analytics</span>
+<div>
+<h3 class="font-body-md text-body-md font-semibold text-primary mb-1">Aegis Intelligence Summary</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">42 open disputes. Critical spike detected in Reason Code 10.4 (Fraudulent Transaction - Card Absent). Recommending batch review for Case IDs CB-9901 through CB-9915 due to high confidence correlation.</p>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container border border-outline-variant rounded shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-container-highest bg-surface-container-low">
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Case ID</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Reason Code</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right">Amount</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Deadline</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-center">Confidence</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Evidence Status</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-highest">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-3 px-4 font-data-md text-data-md text-primary">CB-9901</td>
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface">10.4</td>
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface text-right">$4,250.00</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-error">Today, 17:00</td>
+<td class="py-3 px-4 text-center">
+<div class="relative w-8 h-8 inline-block">
+<svg class="circular-chart secondary-gauge w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="92, 100"></path>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-data-md text-[10px] text-on-surface">92</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary-container/10 border border-secondary-container text-secondary font-body-sm text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    Complete
+                                </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="h-8 px-3 border border-primary text-primary font-body-sm text-body-sm rounded hover:bg-primary/10 transition-colors">CONTEST</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-3 px-4 font-data-md text-data-md text-primary">CB-9902</td>
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface">13.1</td>
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface text-right">$85.50</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-on-surface-variant">Oct 24</td>
+<td class="py-3 px-4 text-center">
+<div class="relative w-8 h-8 inline-block">
+<svg class="circular-chart tertiary-gauge w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="28, 100"></path>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-data-md text-[10px] text-on-surface">28</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-highest border border-outline-variant text-on-surface-variant font-body-sm text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                    Gaps
+                                </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="h-8 px-3 border border-outline-variant text-on-surface-variant font-body-sm text-body-sm rounded hover:border-primary hover:text-primary transition-colors">ACCEPT_LOSS</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-high transition-colors bg-error-container/5 border-l-2 border-l-error">
+<td class="py-3 px-4 font-data-md text-data-md text-primary">CB-9903</td>
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface">10.1</td>
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface text-right">$12,400.00</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-on-surface-variant">Oct 25</td>
+<td class="py-3 px-4 text-center">
+<div class="relative w-8 h-8 inline-block">
+<svg class="circular-chart primary-gauge w-full h-full -rotate-90" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="65, 100"></path>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-data-md text-[10px] text-on-surface">65</span>
+</div>
+</td>
+<td class="py-3 px-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-secondary-container/10 border border-secondary-container text-secondary font-body-sm text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                    Complete
+                                </span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="h-8 px-3 border border-outline-variant text-on-surface-variant font-body-sm text-body-sm rounded hover:border-primary hover:text-primary transition-colors">ESCALATE_TO_HUMAN</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</main>
+</div>
+</body></html>

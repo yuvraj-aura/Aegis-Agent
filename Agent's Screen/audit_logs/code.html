@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Aegis - Forensic Audit Logs & Eval Snapshot</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#0b1326",
+                        "surface-dim": "#0b1326",
+                        "secondary": "#4edea3",
+                        "surface-container-lowest": "#060e20",
+                        "primary": "#adc6ff",
+                        "surface-container-highest": "#2d3449",
+                        "on-background": "#dae2fd",
+                        "outline": "#8c909f",
+                        "surface-variant": "#2d3449",
+                        "surface-container-low": "#131b2e",
+                        "background": "#0b1326",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-container": "#171f33",
+                        "outline-variant": "#424754",
+                        "primary-container": "#4d8eff",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#222a3d",
+                        "on-surface": "#dae2fd",
+                        "secondary-container": "#00a572",
+                        "tertiary": "#ffb95f"
+                    },
+                    fontFamily: {
+                        "data-lg": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-md": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased overflow-hidden flex">
+    <!-- Side Navigation -->
+    <nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-6 px-4 z-50">
+        <div class="mb-8 px-2 flex items-center gap-3">
+            <span class="material-symbols-outlined text-primary text-3xl">fingerprint</span>
+            <div>
+                <h1 class="text-lg font-bold text-primary tracking-tight">Aegis</h1>
+                <p class="text-[11px] font-bold text-on-surface-variant uppercase">Forensic Logic</p>
+            </div>
+        </div>
+        <div class="flex-1 flex flex-col gap-1">
+            <a class="flex items-center gap-3 px-4 py-2.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../risk_command_center/code.html">
+                <span class="material-symbols-outlined text-[20px]">security</span>
+                <span>Risk Command Center</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-2.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../dispute_worklist/code.html">
+                <span class="material-symbols-outlined text-[20px]">assignment</span>
+                <span>Dispute Worklist</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-2.5 rounded text-primary bg-primary-container/10 border-r-2 border-primary font-medium" href="#">
+                <span class="material-symbols-outlined text-[20px]">history</span>
+                <span>Audit Logs</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-2.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="../aegis_dna_config/code.html">
+                <span class="material-symbols-outlined text-[20px]">tune</span>
+                <span>Aegis DNA</span>
+            </a>
+        </div>
+        <div class="mt-auto p-3 rounded bg-surface-container border border-outline-variant/30 text-[11px] text-on-surface-variant space-y-1">
+            <div class="flex items-center gap-1.5 text-secondary">
+                <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                <span class="font-bold">Audit Storage Active</span>
+            </div>
+            <p>Immutable PostgreSQL/SQLite Log</p>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+        <!-- Top App Bar -->
+        <header class="h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-6 z-40">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-on-surface-variant text-[20px]">verified_user</span>
+                <h2 class="text-sm font-semibold text-on-surface">Immutable System Audit Trail</h2>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-xs text-on-surface-variant font-data-md bg-surface-container px-3 py-1 rounded border border-outline-variant/40">Mode: Read-Only Evaluator</span>
+            </div>
+        </header>
+
+        <!-- Canvas -->
+        <main class="flex-1 p-6 overflow-y-auto bg-surface-container-lowest space-y-6">
+            <!-- Header Section -->
+            <div class="flex justify-between items-end">
+                <div>
+                    <h2 class="text-2xl font-bold text-on-surface">Audit Logs & Eval Snapshot</h2>
+                    <p class="text-sm text-on-surface-variant mt-0.5">Every money decision bounded, gated, and traced with zero hallucination.</p>
+                </div>
+            </div>
+
+            <!-- Top Grid: Eval Benchmark & Gate Rules Triggered -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <!-- Card 1: Eval Snapshot (Backend PRD §12) -->
+                <div class="md:col-span-8 bg-surface-container rounded-lg border border-outline-variant/40 p-5">
+                    <div class="flex items-center justify-between mb-4 border-b border-surface-variant pb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-[20px]">science</span>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Eval Snapshot (Held-Out Test Set)</h3>
+                        </div>
+                        <span class="text-xs text-secondary bg-secondary/10 px-2 py-0.5 rounded border border-secondary/20 font-data-md">100% Reproducible</span>
+                    </div>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div>
+                            <p class="text-xs text-on-surface-variant mb-1">Precision</p>
+                            <p class="text-2xl font-data-lg text-primary font-bold">98.2%</p>
+                            <p class="text-[10px] text-on-surface-variant">CONTEST accuracy</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant mb-1">Recall</p>
+                            <p class="text-2xl font-data-lg text-primary font-bold">94.5%</p>
+                            <p class="text-[10px] text-on-surface-variant">Evidence completeness</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant mb-1">False Positive</p>
+                            <p class="text-2xl font-data-lg text-secondary font-bold">1.1%</p>
+                            <p class="text-[10px] text-on-surface-variant">Weak claims blocked</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant mb-1">Gate Escalate Rate</p>
+                            <p class="text-2xl font-data-lg text-tertiary font-bold">80.0%</p>
+                            <p class="text-[10px] text-on-surface-variant">Failure injections caught</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Failsafe Rules Telemetry -->
+                <div class="md:col-span-4 bg-surface-container rounded-lg border border-outline-variant/40 p-5 flex flex-col justify-between">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="material-symbols-outlined text-tertiary text-[18px]">gavel</span>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Failsafe Gate Telemetry</h3>
+                    </div>
+                    <div class="space-y-2 text-xs font-data-md">
+                        <div class="flex justify-between items-center bg-surface-container-low p-2 rounded border border-outline-variant/20">
+                            <span class="text-on-surface-variant">UNKNOWN_REASON_CODE</span>
+                            <span class="text-primary font-bold">1 Caught</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-surface-container-low p-2 rounded border border-outline-variant/20">
+                            <span class="text-on-surface-variant">PRIOR_FRAUD_CONTRADICTION</span>
+                            <span class="text-tertiary font-bold">1 Caught</span>
+                        </div>
+                        <div class="flex justify-between items-center bg-surface-container-low p-2 rounded border border-outline-variant/20">
+                            <span class="text-on-surface-variant">HIGH_VALUE_CEILING</span>
+                            <span class="text-tertiary font-bold">1 Caught</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Audit Trail Table -->
+            <div class="bg-surface-container rounded-lg border border-outline-variant/40 overflow-hidden">
+                <div class="p-4 bg-surface-container-low border-b border-surface-variant flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-on-surface-variant text-[18px]">receipt_long</span>
+                        <h3 class="text-xs font-bold uppercase tracking-wider text-on-surface">Execution Audit Log (PostgreSQL Store)</h3>
+                    </div>
+                    <span class="text-xs font-data-md text-on-surface-variant">5 Rows Recorded</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="border-b border-surface-variant bg-surface-container-high/40 text-on-surface-variant font-label-caps uppercase">
+                                <th class="py-3 px-4">Audit ID & Timestamp</th>
+                                <th class="py-3 px-4">Case ID</th>
+                                <th class="py-3 px-4">Reason Code</th>
+                                <th class="py-3 px-4 text-right">Amount</th>
+                                <th class="py-3 px-4 text-center">Confidence</th>
+                                <th class="py-3 px-4">Gate Decision & Rule</th>
+                                <th class="py-3 px-4 text-right">Final Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-surface-variant font-data-md">
+                            <!-- Row 1: High Value -->
+                            <tr class="hover:bg-surface-container-high/30 transition-colors">
+                                <td class="py-3 px-4 text-on-surface-variant">AUD-17880921-305<br><span class="text-[10px] text-outline">2026-08-30 12:15:44</span></td>
+                                <td class="py-3 px-4 text-primary font-bold">CB-HIGH-VALUE</td>
+                                <td class="py-3 px-4 text-on-surface">10.4</td>
+                                <td class="py-3 px-4 text-right font-bold text-on-surface">$14,500.00</td>
+                                <td class="py-3 px-4 text-center text-secondary">100%</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-0.5 rounded bg-tertiary/10 border border-tertiary/30 text-tertiary text-[10px]">
+                                        HIGH_VALUE_CEILING
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4 text-right">
+                                    <span class="px-2 py-1 rounded bg-surface-container-high border border-outline-variant text-on-surface-variant text-[11px]">ESCALATE_TO_HUMAN</span>
+                                </td>
+                            </tr>
+                            <!-- Row 2: Incomplete -->
+                            <tr class="hover:bg-surface-container-high/30 transition-colors">
+                                <td class="py-3 px-4 text-on-surface-variant">AUD-17880921-322<br><span class="text-[10px] text-outline">2026-08-30 12:15:44</span></td>
+                                <td class="py-3 px-4 text-primary font-bold">CB-MISSING-GAPS</td>
+                                <td class="py-3 px-4 text-on-surface">13.3</td>
+                                <td class="py-3 px-4 text-right font-bold text-on-surface">$190.00</td>
+                                <td class="py-3 px-4 text-center text-error">25%</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-0.5 rounded bg-error/10 border border-error/30 text-error text-[10px]">
+                                        INSUFFICIENT_EVIDENCE
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4 text-right">
+                                    <span class="px-2 py-1 rounded bg-surface-container-high border border-outline-variant text-on-surface-variant text-[11px]">ESCALATE_TO_HUMAN</span>
+                                </td>
+                            </tr>
+                            <!-- Row 3: Contradiction -->
+                            <tr class="hover:bg-surface-container-high/30 transition-colors">
+                                <td class="py-3 px-4 text-on-surface-variant">AUD-17880921-718<br><span class="text-[10px] text-outline">2026-08-30 12:15:44</span></td>
+                                <td class="py-3 px-4 text-primary font-bold">CB-CONTRADICT-01</td>
+                                <td class="py-3 px-4 text-on-surface">13.1</td>
+                                <td class="py-3 px-4 text-right font-bold text-on-surface">$450.00</td>
+                                <td class="py-3 px-4 text-center text-secondary">100%</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-0.5 rounded bg-tertiary/10 border border-tertiary/30 text-tertiary text-[10px]">
+                                        PRIOR_FRAUD_CONTRADICTION
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4 text-right">
+                                    <span class="px-2 py-1 rounded bg-surface-container-high border border-outline-variant text-on-surface-variant text-[11px]">ESCALATE_TO_HUMAN</span>
+                                </td>
+                            </tr>
+                            <!-- Row 4: Unknown Code -->
+                            <tr class="hover:bg-surface-container-high/30 transition-colors">
+                                <td class="py-3 px-4 text-on-surface-variant">AUD-17880921-539<br><span class="text-[10px] text-outline">2026-08-30 12:15:44</span></td>
+                                <td class="py-3 px-4 text-primary font-bold">CB-UNKNOWN-ERR</td>
+                                <td class="py-3 px-4 text-error">99.9_UNKNOWN</td>
+                                <td class="py-3 px-4 text-right font-bold text-on-surface">$320.00</td>
+                                <td class="py-3 px-4 text-center text-error">0%</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-0.5 rounded bg-error/10 border border-error/30 text-error text-[10px]">
+                                        UNKNOWN_REASON_CODE
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4 text-right">
+                                    <span class="px-2 py-1 rounded bg-surface-container-high border border-outline-variant text-on-surface-variant text-[11px]">ESCALATE_TO_HUMAN</span>
+                                </td>
+                            </tr>
+                            <!-- Row 5: Clean Pass -->
+                            <tr class="hover:bg-surface-container-high/30 transition-colors bg-primary/5">
+                                <td class="py-3 px-4 text-on-surface-variant">AUD-17880921-837<br><span class="text-[10px] text-outline">2026-08-30 12:15:44</span></td>
+                                <td class="py-3 px-4 text-primary font-bold">CB-104-PASS</td>
+                                <td class="py-3 px-4 text-on-surface">10.4</td>
+                                <td class="py-3 px-4 text-right font-bold text-on-surface">$850.00</td>
+                                <td class="py-3 px-4 text-center text-secondary">100%</td>
+                                <td class="py-3 px-4">
+                                    <span class="px-2 py-0.5 rounded bg-secondary/10 border border-secondary/30 text-secondary text-[10px]">
+                                        GATE PASSED (CLEAN)
+                                    </span>
+                                </td>
+                                <td class="py-3 px-4 text-right">
+                                    <span class="px-3 py-1 rounded bg-primary text-surface font-bold text-[11px]">CONTEST</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

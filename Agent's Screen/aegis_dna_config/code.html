@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aegis - Forensic Logic</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#0b1326",
+                        "surface-dim": "#0b1326",
+                        "on-tertiary-container": "#3e2400",
+                        "secondary": "#4edea3",
+                        "inverse-surface": "#dae2fd",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary": "#472a00",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-lowest": "#060e20",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-on-surface": "#283044",
+                        "on-primary": "#002e6a",
+                        "primary": "#adc6ff",
+                        "surface-container-highest": "#2d3449",
+                        "on-background": "#dae2fd",
+                        "outline": "#8c909f",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-variant": "#2d3449",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-container-low": "#131b2e",
+                        "on-secondary-container": "#00311f",
+                        "error-container": "#93000a",
+                        "background": "#0b1326",
+                        "inverse-primary": "#005ac2",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed": "#d8e2ff",
+                        "on-primary-container": "#00285d",
+                        "surface-container": "#171f33",
+                        "outline-variant": "#424754",
+                        "primary-container": "#4d8eff",
+                        "on-secondary": "#003824",
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#ca8100",
+                        "surface-container-high": "#222a3d",
+                        "surface-bright": "#31394d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-surface": "#dae2fd",
+                        "on-primary-fixed": "#001a42",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-fixed-variant": "#004395",
+                        "secondary-container": "#00a572",
+                        "tertiary": "#ffb95f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "gutter": "16px",
+                        "margin": "24px"
+                    },
+                    "fontFamily": {
+                        "data-lg": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-md": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-surface'); }
+    </style>
+</head>
+<body class="antialiased min-h-screen font-body-md text-body-md">
+<!-- SideNavBar Component -->
+<nav class="bg-surface-container-low h-screen w-64 fixed left-0 top-0 border-r border-outline-variant flex flex-col py-margin px-4 z-50">
+<div class="flex items-center gap-3 mb-8 px-2">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">security</span>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight leading-none">Aegis</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase mt-1">Forensic Logic</p>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-body-sm text-body-sm h-10 rounded mb-8 flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors duration-150">
+<span class="material-symbols-outlined text-lg">add</span>
+            New Investigation
+        </button>
+<div class="flex flex-col gap-2 flex-grow">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-xl">security</span>
+<span class="font-body-md text-body-md">Risk Command Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-xl">assignment</span>
+<span class="font-body-md text-body-md">Dispute Worklist</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-xl">history</span>
+<span class="font-body-md text-body-md">Audit Logs</span>
+</a>
+<!-- Active -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-l text-primary bg-primary-container/10 border-r-2 border-primary opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined text-xl">csv</span>
+<span class="font-body-md text-body-md font-medium">Aegis DNA</span>
+</a>
+</div>
+</nav>
+<!-- TopAppBar Component -->
+<header class="bg-surface fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-outline-variant flex justify-between items-center px-gutter z-40">
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container border border-outline-variant rounded h-8 pl-9 pr-3 text-body-sm font-body-sm text-on-surface placeholder-on-surface-variant w-64 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Query entities, codes, logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-1 focus:ring-primary rounded p-1">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-1 focus:ring-primary rounded p-1">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-1 focus:ring-primary rounded p-1">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden ml-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 mt-16 p-margin max-w-container-max mx-auto">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-1">Configuration Matrix</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">System-wide logic thresholds and automated reasoning parameters.</p>
+</div>
+<button class="bg-surface-container-high border border-outline-variant text-on-surface font-body-sm text-body-sm h-8 px-4 rounded hover:bg-surface-bright transition-colors">
+                Commit Changes
+            </button>
+</div>
+<!-- Configuration Health Indicator (Insight Style) -->
+<div class="bg-surface-container border-l-2 border-primary border-t border-r border-b border-outline-variant/30 rounded-r p-4 mb-6 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<div>
+<h3 class="font-body-md text-body-md font-medium text-on-surface mb-1">System Architecture Health</h3>
+<p class="font-data-md text-data-md text-on-surface-variant">5/5 codes have complete evidence schemas linked for auto-assembly.</p>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-gutter items-start">
+<!-- Global Failsafe Rules Panel -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container border border-outline-variant/30 rounded p-5">
+<div class="flex items-center gap-2 mb-4 pb-3 border-b border-surface-container-high">
+<span class="material-symbols-outlined text-secondary text-sm">tune</span>
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase">Global Failsafe Rules</h3>
+</div>
+<div class="space-y-5">
+<div>
+<label class="block font-body-sm text-body-sm text-on-surface-variant mb-1.5">Escalation Value Threshold</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-data-md text-data-md text-on-surface-variant">$</span>
+<input class="w-full bg-surface border border-outline-variant/50 rounded h-10 pl-7 pr-3 font-data-md text-data-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow shadow-inner shadow-black/20" type="text" value="25,000.00"/>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1.5 text-[10px]">Triggers manual review regardless of confidence.</p>
+</div>
+<div>
+<label class="block font-body-sm text-body-sm text-on-surface-variant mb-1.5">Minimum Confidence Score</label>
+<div class="flex items-center gap-3">
+<input class="w-full h-1 bg-surface-container-high rounded-full appearance-none cursor-pointer accent-primary" max="100" min="0" type="range" value="75"/>
+<div class="bg-surface border border-outline-variant/50 rounded h-8 px-3 flex items-center justify-center min-w-[60px]">
+<span class="font-data-md text-data-md text-primary">75%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Reason Code Mappings Table -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container border border-outline-variant/30 rounded overflow-hidden">
+<div class="flex items-center justify-between p-4 border-b border-surface-container-high bg-surface-container-low/50">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">schema</span>
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase">Active Configurations</h3>
+</div>
+<span class="font-data-md text-data-md text-on-surface-variant bg-surface px-2 py-0.5 rounded text-[11px] border border-outline-variant/30">Total: 5</span>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-container-high bg-surface-container/50">
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 font-normal uppercase tracking-wider">Reason Code</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 font-normal uppercase tracking-wider">Category</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 font-normal uppercase tracking-wider">Evidence Schema</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-3 px-4 font-normal uppercase tracking-wider text-right">Auto-Assemble</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high">
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="py-3 px-4">
+<span class="font-data-md text-data-md text-primary bg-primary/10 px-1.5 py-0.5 rounded">10.4 / 4837</span>
+</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-on-surface">Unauthorized Transaction (Card Not Present)</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Validated (4 Fields)
+                            </td>
+<td class="py-3 px-4 text-right">
+<label class="relative inline-flex items-center cursor-pointer ml-auto">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-bright rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="py-3 px-4">
+<span class="font-data-md text-data-md text-primary bg-primary/10 px-1.5 py-0.5 rounded">13.1 / 4855</span>
+</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-on-surface">Goods/Services Not Received</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Validated (3 Fields)
+                            </td>
+<td class="py-3 px-4 text-right">
+<label class="relative inline-flex items-center cursor-pointer ml-auto">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-bright rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="py-3 px-4">
+<span class="font-data-md text-data-md text-primary bg-primary/10 px-1.5 py-0.5 rounded">13.3 / 4853</span>
+</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-on-surface">Not as Described / Defective Merchandise</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Validated (4 Fields)
+                            </td>
+<td class="py-3 px-4 text-right">
+<label class="relative inline-flex items-center cursor-pointer ml-auto">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-bright rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="py-3 px-4">
+<span class="font-data-md text-data-md text-primary bg-primary/10 px-1.5 py-0.5 rounded">12.6.1 / 4834</span>
+</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-on-surface">Duplicate Processing</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Validated (3 Fields)
+                            </td>
+<td class="py-3 px-4 text-right">
+<label class="relative inline-flex items-center cursor-pointer ml-auto">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-bright rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="py-3 px-4">
+<span class="font-data-md text-data-md text-primary bg-primary/10 px-1.5 py-0.5 rounded">13.6 / 4860</span>
+</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-on-surface">Credit Not Processed</td>
+<td class="py-3 px-4 font-body-sm text-body-sm text-secondary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Validated (3 Fields)
+                            </td>
+<td class="py-3 px-4 text-right">
+<label class="relative inline-flex items-center cursor-pointer ml-auto">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-bright rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</body></html>

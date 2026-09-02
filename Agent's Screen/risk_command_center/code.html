@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aegis - Risk Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#0b1326",
+                        "surface-dim": "#0b1326",
+                        "on-tertiary-container": "#3e2400",
+                        "secondary": "#4edea3",
+                        "inverse-surface": "#dae2fd",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary": "#472a00",
+                        "tertiary-fixed": "#ffddb8",
+                        "surface-container-lowest": "#060e20",
+                        "secondary-fixed": "#6ffbbe",
+                        "inverse-on-surface": "#283044",
+                        "on-primary": "#002e6a",
+                        "primary": "#adc6ff",
+                        "surface-container-highest": "#2d3449",
+                        "on-background": "#dae2fd",
+                        "outline": "#8c909f",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#adc6ff",
+                        "surface-variant": "#2d3449",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-container-low": "#131b2e",
+                        "on-secondary-container": "#00311f",
+                        "error-container": "#93000a",
+                        "background": "#0b1326",
+                        "inverse-primary": "#005ac2",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed": "#d8e2ff",
+                        "on-primary-container": "#00285d",
+                        "surface-container": "#171f33",
+                        "outline-variant": "#424754",
+                        "primary-container": "#4d8eff",
+                        "on-secondary": "#003824",
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#ca8100",
+                        "surface-container-high": "#222a3d",
+                        "surface-bright": "#31394d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-surface": "#dae2fd",
+                        "on-primary-fixed": "#001a42",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-fixed-variant": "#004395",
+                        "secondary-container": "#00a572",
+                        "tertiary": "#ffb95f"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "gutter": "16px",
+                        "margin": "24px"
+                    },
+                    fontFamily: {
+                        "data-lg": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-md": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    fontSize: {
+                        "data-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom scrollbar for forensic aesthetic */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060e20; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3449; 
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #424754; 
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-md antialiased overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant flex flex-col py-margin px-4 z-50">
+<!-- Brand / Header -->
+<div class="mb-8 px-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container/20 border border-primary/30 flex items-center justify-center shrink-0">
+<img class="w-5 h-5 object-contain" data-alt="A stylized minimalist fingerprint or circuitry logo serving as the Aegis Forensic emblem, glowing softly in cold blue against a dark background, establishing a highly technical and secure identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChXgPD_lsCPXLb0qrsYKFYXGaa0Hbze5E0o3Xt4e7PH5LF5Q6oPkYZDY5e5IvoMVXZw8edemPKjL8Jr_aGlWjN0r6iFbhQaP6HPLGuO2E6-7x536eLp1zpg_ljzP9vs5xmgzt2zSlHNq6jbxdqL7NmhBGic3vf5JdcbYHqVt0bx28rtcgXLoNYNjiL3C45PTj0s3g6__EOu1YAK30cyu2wV2zpoZ6bJBVzg89Umibp0l8tUdc90ZrAxg"/>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">Aegis</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Forensic Logic</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-1">
+<!-- Active Tab: Risk Command Center -->
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-primary bg-primary-container/10 border-r-2 border-primary font-body-md text-body-md opacity-90 transition-opacity" href="#">
+<span class="material-symbols-outlined text-[20px]" data-weight="fill">security</span>
+<span>Risk Command Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-[20px]">assignment</span>
+<span>Dispute Worklist</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span>Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors duration-150 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined text-[20px]">csv</span>
+<span>Aegis DNA</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto pt-4">
+<button class="w-full bg-primary hover:bg-primary-fixed-dim text-on-primary font-body-md text-body-md h-10 rounded-DEFAULT flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Investigation
+            </button>
+</div>
+</nav>
+<!-- Main Wrapper -->
+<div class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter z-40 transition-all">
+<!-- Search Bar (on_left) -->
+<div class="flex-1 max-w-md relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px] group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container h-9 pl-10 pr-4 rounded-DEFAULT border border-surface-variant text-on-surface font-body-sm text-body-sm placeholder-on-surface-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Query entity, case ID, or IP..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4 shrink-0">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:text-primary hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:text-primary hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:text-primary hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<button class="flex items-center gap-2 focus:ring-1 focus:ring-primary rounded-full p-0.5 pr-2 transition-shadow">
+<img class="w-7 h-7 rounded-full object-cover border border-outline-variant" data-alt="A small, circular avatar portrait of an investigative analyst in a dark, tech-forward setting. Subtle blue rim lighting on their profile against a pure black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgNDNZ_fZG2cSJebR_UHuxiui13J3ctEpFeYI5n7EPonvqmB_FQ3WNm6NLwBQO-uEXe4J8D02BFGQCoemL54E1MqGFBt0sbHKiJSR0bqWk90QGKEtWr2wK2cBEES-wKPv5--gytWfbtU1Ruws7hYgYVZT_C_ANWqJmBgl19nAvDCfmlfQJWyMJVYKDobm7p1nZcExydplAashkhfte0BicRKFu9I4_Y81FO-Y9B6cs2DnLRSaxumQ0oQ"/>
+<span class="font-body-sm text-body-sm text-on-surface hidden md:block">Investigator 01</span>
+</button>
+</div>
+</header>
+<!-- Canvas / Dashboard Content -->
+<main class="flex-1 mt-16 p-margin overflow-y-auto bg-surface-container-lowest">
+<div class="max-w-container-max mx-auto space-y-6">
+<!-- Page Header -->
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Risk Command Center</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Live telemetry and escalation routing.</p>
+</div>
+<!-- Main Metrics Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Most Prominent Card: Core Efficacy (Spans 8 cols) -->
+<div class="md:col-span-8 bg-surface-container rounded-lg border border-outline-variant p-6 relative overflow-hidden flex flex-col justify-between">
+<!-- Subtle Background Glow -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary text-[20px]">target</span>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">System Efficacy Benchmark</h3>
+</div>
+<div class="grid grid-cols-3 gap-4 mt-6">
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Precision</p>
+<p class="font-data-lg text-data-lg text-on-surface text-3xl">98.2%</p>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Recall</p>
+<p class="font-data-lg text-data-lg text-on-surface text-3xl">94.5%</p>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-1">False-Positive Rate</p>
+<p class="font-data-lg text-data-lg text-secondary text-3xl">1.1%</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-4 border-t border-surface-variant flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary"></span> Eval Reproducibility: 100% Passed</span>
+<span class="text-xs text-on-surface-variant font-data-md">Evaluated on Held-Out Test Set (50 Records)</span>
+</div>
+</div>
+<!-- Avg Confidence Score (Spans 4 cols) -->
+<div class="md:col-span-4 bg-surface-container rounded-lg border border-outline-variant p-6 flex flex-col items-center justify-center relative">
+<div class="absolute top-4 left-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">psychology</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Avg. Confidence</span>
+</div>
+<!-- Confidence Gauge Component -->
+<div class="relative w-32 h-32 mt-6 flex items-center justify-center">
+<!-- Background Track -->
+<svg class="absolute inset-0 w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="none" r="45" stroke="#2d3449" stroke-width="4"></circle>
+<!-- Value Track (81% of circumference 2*pi*r ≈ 283. Arc length ≈ 229) -->
+<circle cx="50" cy="50" fill="none" r="45" stroke="#4edea3" stroke-dasharray="229, 283" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<!-- Inner Value -->
+<span class="font-data-lg text-data-lg text-headline-lg text-on-surface relative z-10">81%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-4 text-center">Across all processed packets today</p>
+</div>
+<!-- Secondary Metrics Row -->
+<!-- Total Packets -->
+<div class="md:col-span-4 bg-surface-container rounded-lg border border-outline-variant p-6">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Total Packets Processed</span>
+<span class="material-symbols-outlined text-outline text-[18px]">data_object</span>
+</div>
+<p class="font-data-lg text-data-lg text-2xl text-on-surface">1,422</p>
+<div class="mt-2 flex items-center gap-2 text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span>
+<span>12% vs last hour</span>
+</div>
+</div>
+<!-- Escalation Rate -->
+<div class="md:col-span-4 bg-surface-container rounded-lg border border-outline-variant p-6">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Escalation Rate</span>
+<span class="material-symbols-outlined text-outline text-[18px]">trending_up</span>
+</div>
+<p class="font-data-lg text-data-lg text-2xl text-tertiary">19%</p>
+<div class="mt-2 flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[14px]">horizontal_rule</span>
+<span>Stable</span>
+</div>
+</div>
+<!-- Action Distribution -->
+<div class="md:col-span-4 bg-surface-container rounded-lg border border-outline-variant p-6">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Action Distribution</span>
+</div>
+<div class="space-y-3 mt-4">
+<div class="flex justify-between items-center">
+<span class="font-data-md text-data-md text-on-surface">CONTEST</span>
+<span class="font-data-md text-data-md text-on-surface-variant">840</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 59%;"></div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-data-md text-data-md text-on-surface">ACCEPT_LOSS</span>
+<span class="font-data-md text-data-md text-on-surface-variant">312</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full overflow-hidden">
+<div class="bg-outline h-full" style="width: 22%;"></div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-data-md text-data-md text-on-surface">ESCALATE</span>
+<span class="font-data-md text-data-md text-on-surface-variant">270</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full" style="width: 19%;"></div>
+</div>
+</div>
+</div>
+<!-- Confidence Distribution Chart (Spans 12 cols, minimalist widget) -->
+<div class="md:col-span-12 bg-surface-container rounded-lg border border-outline-variant p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Confidence Distribution</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex gap-4 items-end h-24 mt-4">
+<!-- High -->
+<div class="flex-1 flex flex-col justify-end group">
+<div class="w-full bg-secondary hover:bg-secondary-fixed-dim transition-colors rounded-t-DEFAULT h-full opacity-80 group-hover:opacity-100 flex items-end p-2 relative">
+<span class="font-data-md text-data-md text-surface-container-lowest font-bold">65%</span>
+</div>
+<div class="mt-2 text-center">
+<p class="font-label-caps text-label-caps text-on-surface">High</p>
+<p class="font-data-md text-data-md text-on-surface-variant text-[10px]">&gt;85%</p>
+</div>
+</div>
+<!-- Medium -->
+<div class="flex-1 flex flex-col justify-end group">
+<div class="w-full bg-primary hover:bg-primary-fixed transition-colors rounded-t-DEFAULT h-[60%] opacity-80 group-hover:opacity-100 flex items-end p-2 relative">
+<span class="font-data-md text-data-md text-surface-container-lowest font-bold">25%</span>
+</div>
+<div class="mt-2 text-center">
+<p class="font-label-caps text-label-caps text-on-surface">Medium</p>
+<p class="font-data-md text-data-md text-on-surface-variant text-[10px]">50-84%</p>
+</div>
+</div>
+<!-- Low -->
+<div class="flex-1 flex flex-col justify-end group">
+<div class="w-full bg-tertiary hover:bg-tertiary-fixed transition-colors rounded-t-DEFAULT h-[15%] opacity-80 group-hover:opacity-100 flex items-end p-2 relative">
+<span class="font-data-md text-data-md text-surface-container-lowest font-bold">10%</span>
+</div>
+<div class="mt-2 text-center">
+<p class="font-label-caps text-label-caps text-on-surface">Low</p>
+<p class="font-data-md text-data-md text-on-surface-variant text-[10px]">&lt;50%</p>
+</div>
+</div>
+</div>
+</div>
+<!-- High-Value Failsafes Table (Aegis-generated Insights style) -->
+<div class="md:col-span-12 bg-surface-container rounded-lg border-l-2 border-l-primary border-t border-r border-b border-outline-variant overflow-hidden">
+<div class="p-4 border-b border-surface-variant bg-surface-container-high/50 flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">shield_lock</span>
+                                High-Value Failsafes
+                            </h3>
+<button class="px-3 py-1 border border-primary text-primary font-body-sm text-body-sm rounded-DEFAULT hover:bg-primary/10 transition-colors">Export CSV</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant text-on-surface-variant font-label-caps text-label-caps bg-surface-container-low/50">
+<th class="p-4 font-normal">Case ID</th>
+<th class="p-4 font-normal">Amount</th>
+<th class="p-4 font-normal">Gate Rule</th>
+<th class="p-4 font-normal">Deadline</th>
+<th class="p-4 font-normal text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-data-md text-data-md text-on-surface">
+<tr class="border-b border-surface-variant hover:bg-surface-container-high/30 transition-colors">
+<td class="p-4">AGS-882-9A</td>
+<td class="p-4">$14,250.00</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-label-caps bg-tertiary-container/20 text-tertiary border border-tertiary/30">CEILING</span>
+</td>
+<td class="p-4 text-on-surface-variant">02:14:00</td>
+<td class="p-4 text-right">
+<button class="text-primary hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined text-[18px]">open_in_new</span></button>
+</td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-high/30 transition-colors">
+<td class="p-4">AGS-710-3B</td>
+<td class="p-4">$8,900.50</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-label-caps bg-secondary-container/20 text-secondary border border-secondary/30">HISTORY</span>
+</td>
+<td class="p-4 text-on-surface-variant">04:30:15</td>
+<td class="p-4 text-right">
+<button class="text-primary hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined text-[18px]">open_in_new</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="p-4">AGS-601-1C</td>
+<td class="p-4">$5,400.00</td>
+<td class="p-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-label-caps bg-error-container/20 text-error border border-error/30">SIGNAL</span>
+</td>
+<td class="p-4 text-on-surface-variant">11:05:40</td>
+<td class="p-4 text-right">
+<button class="text-primary hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined text-[18px]">open_in_new</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
