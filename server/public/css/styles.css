@@ -1,0 +1,155 @@
+/* Aegis Modern Minimalist Light SaaS Design System */
+
+@keyframes pulse-subtle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Material Symbols configuration */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    vertical-align: middle;
+}
+
+/* Minimalist SaaS Scrollbar (Light Mode) */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Skeleton Loading (Light Mode) */
+.skeleton {
+    animation: pulse-subtle 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    background-color: #f1f5f9;
+}
+
+/* Base interactive button transitions */
+button, .btn {
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Primary SaaS Action Button */
+.btn-primary, button.bg-primary {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 2px rgba(37, 99, 235, 0.15), 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:hover, button.bg-primary:hover {
+    background-color: #1d4ed8 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:active, button.bg-primary:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 1px 2px rgba(37, 99, 235, 0.1);
+}
+
+/* Secondary / Bordered Button */
+.btn-secondary, button.border-outline-variant {
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-secondary:hover, button.border-outline-variant:hover {
+    border-color: #94a3b8 !important;
+    background-color: #f8fafc !important;
+    color: #0f172a !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:active, button.border-outline-variant:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Warning / Manual Review Button */
+.btn-warning {
+    background-color: #fef3c7 !important;
+    color: #b45309 !important;
+    border: 1px solid #fde68a !important;
+}
+
+.btn-warning:hover {
+    background-color: #fde68a !important;
+    color: #92400e !important;
+    border-color: #fcd34d !important;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(245, 158, 11, 0.15);
+}
+
+.btn-warning:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Sidebar Nav Buttons */
+.nav-btn {
+    transition: all 0.15s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-btn:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    transform: translateX(2px);
+}
+
+.nav-btn.active-tab {
+    background-color: #eff6ff !important;
+    color: #1d4ed8 !important;
+    border-left: 3px solid #2563eb !important;
+    font-weight: 600;
+}
+
+/* Data Table Row Transitions */
+tbody tr {
+    transition: background-color 0.12s ease;
+}
+
+tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Minimalist Chip / Preset Button Transitions */
+.preset-chip {
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preset-chip:hover {
+    transform: translateY(-1px);
+    border-color: #2563eb;
+    background-color: #eff6ff;
+    color: #1d4ed8;
+}
+
+.preset-chip:active {
+    transform: translateY(0) scale(0.97);
+}
+
+/* Smooth Focus Rings for Inputs */
+input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+}
+
+/* Subtle Cards Elevation */
+.card-saas {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+}

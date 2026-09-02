@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Aegis — Dispute Worklist & AI Risk Manager</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="/css/styles.css" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#ffffff",
+                        "surface-dim": "#f8fafc",
+                        "secondary": "#10b981",
+                        "surface-container-lowest": "#f8fafc",
+                        "primary": "#2563eb",
+                        "surface-container-highest": "#e2e8f0",
+                        "on-background": "#0f172a",
+                        "outline": "#94a3b8",
+                        "surface-variant": "#f1f5f9",
+                        "surface-container-low": "#ffffff",
+                        "background": "#f8fafc",
+                        "on-surface-variant": "#64748b",
+                        "surface-container": "#ffffff",
+                        "outline-variant": "#e2e8f0",
+                        "primary-container": "#1d4ed8",
+                        "error": "#ef4444",
+                        "surface-container-high": "#f1f5f9",
+                        "on-surface": "#0f172a",
+                        "secondary-container": "#059669",
+                        "tertiary": "#d97706"
+                    },
+                    fontFamily: {
+                        "data-lg": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "data-md": ["Inter", "sans-serif"],
+                        "headline-sm": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"]
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-[#f8fafc] text-on-surface font-body-md antialiased overflow-hidden flex">
+
+    <!-- SideNavBar -->
+    <nav class="h-screen w-64 fixed left-0 top-0 bg-white border-r border-gray-200 flex flex-col py-5 px-3 z-50">
+        <div class="mb-6 px-3 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
+                <span class="material-symbols-outlined text-[18px]">verified_user</span>
+            </div>
+            <div>
+                <h1 class="text-sm font-bold text-gray-900 tracking-tight">Aegis</h1>
+                <p class="text-[10px] font-medium text-gray-500">Dispute Risk Operations</p>
+            </div>
+        </div>
+
+        <div class="flex-1 flex flex-col gap-1">
+            <button onclick="window.aegis.switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-600 hover:text-gray-900 transition-all text-left text-xs font-medium">
+                <span class="material-symbols-outlined text-[18px]">dashboard</span>
+                <span>Risk Command Center</span>
+            </button>
+            <button onclick="window.aegis.switchTab('worklist')" id="nav-worklist" class="nav-btn active-tab w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-blue-600 transition-all text-left text-xs font-medium">
+                <span class="material-symbols-outlined text-[18px]">view_list</span>
+                <span>Dispute Worklist</span>
+            </button>
+            <button onclick="window.aegis.switchTab('audit')" id="nav-audit" class="nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-600 hover:text-gray-900 transition-all text-left text-xs font-medium">
+                <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+                <span>Audit Logs</span>
+            </button>
+            <button onclick="window.aegis.switchTab('dna')" id="nav-dna" class="nav-btn w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-gray-600 hover:text-gray-900 transition-all text-left text-xs font-medium">
+                <span class="material-symbols-outlined text-[18px]">tune</span>
+                <span>Rules & Policies</span>
+            </button>
+        </div>
+
+        <!-- Clean SaaS footer -->
+        <div class="mt-auto pt-3 border-t border-gray-200 text-center text-[11px] text-gray-400">
+            Aegis AI Risk Manager · v1.0
+        </div>
+    </nav>
+
+    <!-- Main Wrapper -->
+    <div class="flex-1 ml-64 flex flex-col h-screen overflow-hidden">
+        <!-- Top App Bar -->
+        <header class="h-14 bg-white border-b border-gray-200 flex justify-between items-center px-6 z-40">
+            <div class="flex items-center gap-2.5">
+                <span id="page-title-icon" class="material-symbols-outlined text-gray-500 text-[20px]">view_list</span>
+                <h2 id="page-title" class="text-xs font-semibold text-gray-900 uppercase tracking-wider">Dispute Worklist</h2>
+            </div>
+            <div class="flex items-center gap-3">
+                <!-- + New Dispute Quick Action -->
+                <button onclick="window.aegis.openSimModal()" class="btn-primary h-8 px-3 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer" title="Add and test a new dispute case">
+                    <span class="material-symbols-outlined text-[16px]">add</span>
+                    <span>New Dispute</span>
+                </button>
+                <div class="flex items-center gap-2 text-xs bg-gray-50 px-2.5 py-1 rounded-md border border-gray-200 text-gray-600">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span id="server-time-pill" class="text-[11px]">Server Syncing...</span>
+                </div>
+                <button onclick="window.aegis.refreshCurrentTab()" class="p-1.5 rounded-md hover:bg-gray-100 text-gray-500 hover:text-gray-900 transition-colors" title="Refresh Live Data">
+                    <span class="material-symbols-outlined text-[18px]">refresh</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Canvas -->
+        <main class="flex-1 p-6 overflow-y-auto bg-[#f8fafc]">
+            
+            <!-- VIEW: DISPUTE WORKLIST -->
+            <div id="view-worklist" class="space-y-4">
+                <!-- Section 3.1: Header -->
+                <div class="flex justify-between items-end">
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900 tracking-tight">Dispute Worklist</h1>
+                        <p class="text-xs text-gray-500 mt-0.5">Prioritized queue of active disputes needing review or action.</p>
+                    </div>
+
+                    <!-- Right-aligned controls: Create, Filter & Sort -->
+                    <div class="flex items-center gap-2">
+                        <!-- Add Dispute Button -->
+                        <button onclick="window.aegis.openSimModal()" class="btn-primary h-8 px-3.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
+                            <span class="material-symbols-outlined text-[16px]">add</span>
+                            <span>Add New Dispute</span>
+                        </button>
+
+                        <!-- Filter Button -->
+                        <div class="relative">
+                            <button onclick="window.aegis.toggleFilterPanel()" id="filter-btn" class="btn-secondary h-8 px-3 rounded-lg border border-gray-200 bg-white text-xs text-gray-700 hover:text-gray-900 flex items-center gap-1.5 cursor-pointer shadow-sm">
+                                <span class="material-symbols-outlined text-[16px]">filter_list</span>
+                                <span>Filter</span>
+                                <span id="filter-badge" class="hidden w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                            </button>
+
+                            <!-- Section 3.2: Filter Panel Dropdown -->
+                            <div id="filter-panel" class="hidden absolute right-0 mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-xl p-4 z-50 space-y-4 text-xs">
+                                <div class="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                                    <span class="font-semibold text-gray-900">Filter Worklist</span>
+                                    <button onclick="window.aegis.clearAllFilters()" class="text-blue-600 text-[11px] hover:underline font-medium">Clear all</button>
+                                </div>
+
+                                <!-- Filter 1: Reason Code Checklist -->
+                                <div>
+                                    <label class="block font-semibold text-gray-700 mb-1.5 text-[11px] uppercase tracking-wider">Reason Code</label>
+                                    <div id="filter-reason-codes-list" class="max-h-36 overflow-y-auto space-y-1.5 pr-1"></div>
+                                </div>
+
+                                <!-- Filter 2: Evidence Status -->
+                                <div>
+                                    <label class="block font-semibold text-gray-700 mb-1.5 text-[11px] uppercase tracking-wider">Evidence Status</label>
+                                    <div class="flex gap-3">
+                                        <label class="flex items-center gap-1.5 cursor-pointer text-gray-600 hover:text-gray-900">
+                                            <input type="checkbox" value="complete" onchange="window.aegis.onFilterChange()" class="filter-status rounded border-gray-300 text-blue-600 focus:ring-blue-500 text-xs"/>
+                                            <span>Complete</span>
+                                        </label>
+                                        <label class="flex items-center gap-1.5 cursor-pointer text-gray-600 hover:text-gray-900">
+                                            <input type="checkbox" value="gaps" onchange="window.aegis.onFilterChange()" class="filter-status rounded border-gray-300 text-blue-600 focus:ring-blue-500 text-xs"/>
+                                            <span>Gaps</span>
+                                        </label>
+                                        <label class="flex items-center gap-1.5 cursor-pointer text-gray-600 hover:text-gray-900">
+                                            <input type="checkbox" value="missing" onchange="window.aegis.onFilterChange()" class="filter-status rounded border-gray-300 text-blue-600 focus:ring-blue-500 text-xs"/>
+                                            <span>Missing</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Filter 3: Deadline Single Select -->
+                                <div>
+                                    <label class="block font-semibold text-gray-700 mb-1.5 text-[11px] uppercase tracking-wider">Deadline</label>
+                                    <select id="filter-deadline" onchange="window.aegis.onFilterChange()" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800">
+                                        <option value="all">All Deadlines</option>
+                                        <option value="today">Today (< 24h)</option>
+                                        <option value="this_week">This Week</option>
+                                        <option value="overdue">Overdue</option>
+                                    </select>
+                                </div>
+
+                                <!-- Filter 4: Confidence Band Single Select -->
+                                <div>
+                                    <label class="block font-semibold text-gray-700 mb-1.5 text-[11px] uppercase tracking-wider">Confidence Band</label>
+                                    <select id="filter-confidence" onchange="window.aegis.onFilterChange()" class="w-full bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-800">
+                                        <option value="all">All Scores</option>
+                                        <option value="high">High (≥85)</option>
+                                        <option value="medium">Medium (50–84)</option>
+                                        <option value="low">Low (<50)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 3.3: Sort Control Dropdown -->
+                        <div class="relative">
+                            <button onclick="window.aegis.toggleSortPanel()" id="sort-btn" class="btn-secondary h-8 px-3 rounded-lg border border-gray-200 bg-white text-xs text-gray-700 hover:text-gray-900 flex items-center gap-1.5 cursor-pointer shadow-sm">
+                                <span class="material-symbols-outlined text-[16px]">sort</span>
+                                <span id="sort-current-label">Sort: Deadline</span>
+                            </button>
+
+                            <div id="sort-panel" class="hidden absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-xl p-1.5 z-50 space-y-0.5 text-xs">
+                                <button onclick="window.aegis.setSort('deadline_asc', 'Deadline (soonest first)')" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors">Deadline (soonest first) [Default]</button>
+                                <button onclick="window.aegis.setSort('amount_desc', 'Amount (highest first)')" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors">Amount (highest first)</button>
+                                <button onclick="window.aegis.setSort('confidence_asc', 'Confidence (lowest first)')" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors">Confidence (lowest first)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3.4: Table Container -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="border-b border-gray-200 bg-gray-50/80 text-gray-500 font-semibold uppercase tracking-wider text-[11px]">
+                                    <th class="py-3 px-4 w-28">Case ID</th>
+                                    <th class="py-3 px-4">Reason Code</th>
+                                    <th class="py-3 px-4 text-right w-28">Amount</th>
+                                    <th class="py-3 px-4 w-32">Deadline</th>
+                                    <th class="py-3 px-4 text-center w-24">Confidence</th>
+                                    <th class="py-3 px-4 w-28">Evidence Status</th>
+                                    <th class="py-3 px-4 text-right w-44">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="worklist-tbody" class="divide-y divide-gray-100"></tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table Footer: Pagination Controls -->
+                    <div id="pagination-bar" class="p-3 bg-gray-50/60 border-t border-gray-200 flex justify-between items-center text-xs text-gray-500">
+                        <div id="pagination-info" class="text-xs">Showing 0 cases</div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="window.aegis.changePage(-1)" id="btn-prev-page" class="px-3 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm">Previous</button>
+                            <span id="pagination-page-indicator" class="font-medium text-gray-900 text-xs">Page 1 of 1</span>
+                            <button onclick="window.aegis.changePage(1)" id="btn-next-page" class="px-3 py-1 rounded-md border border-gray-200 bg-white hover:bg-gray-50 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: RISK COMMAND CENTER (PRD_Risk_Command_Center.md) -->
+            <div id="view-dashboard" class="space-y-6">
+                <!-- Section A — Model Backtest Benchmark (static, versioned) -->
+                <div id="rcc-section-a">
+                    <!-- Populated dynamically by loadBacktestBenchmark() -->
+                </div>
+
+                <!-- Section B — Live Queue Snapshot (real-time, computed from cases table) -->
+                <div id="rcc-section-b">
+                    <!-- Populated dynamically by loadLiveQueueSnapshot() -->
+                </div>
+
+                <!-- Section C — High-Value Disputes Table -->
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                    <div class="p-4 bg-gray-50/80 border-b border-gray-200 flex justify-between items-center">
+                        <div>
+                            <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-900">High-Value Disputes (Manual Review)</h3>
+                            <p class="text-xs text-gray-500 mt-0.5">Transactions exceeding auto-resolution limits requiring manager sign-off</p>
+                        </div>
+                        <button onclick="window.aegis.exportFailsafesCSV()" class="btn-secondary h-8 px-3 rounded-lg border border-gray-200 bg-white text-xs text-gray-700 hover:text-gray-900 flex items-center gap-1.5 cursor-pointer shadow-sm">
+                            <span class="material-symbols-outlined text-[16px]">download</span>
+                            <span>Export CSV</span>
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="border-b border-gray-200 bg-gray-50/80 text-gray-500 font-semibold uppercase tracking-wider text-[11px]">
+                                    <th class="py-3 px-4 w-32">Case ID</th>
+                                    <th class="py-3 px-4 text-right w-32">Amount</th>
+                                    <th class="py-3 px-4 w-44">Safety Check Rule</th>
+                                    <th class="py-3 px-4 w-36">Deadline</th>
+                                    <th class="py-3 px-4 text-right w-20">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rcc-failsafes-tbody" class="divide-y divide-gray-100">
+                                <!-- Populated dynamically by loadHighValueFailsafes() -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FULL EVAL REPORT ARTIFACT MODAL (§3.2) -->
+            <div id="eval-report-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+                <div class="bg-white border border-gray-200 rounded-xl w-full max-w-2xl p-6 space-y-4 shadow-2xl">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                        <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-blue-600 text-[18px]">verified</span>
+                            Full Stored Evaluation Benchmark Report
+                        </h3>
+                        <button onclick="window.aegis.closeEvalReportModal()" class="p-1 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+                            <span class="material-symbols-outlined text-[18px]">close</span>
+                        </button>
+                    </div>
+                    
+                    <div id="eval-report-modal-content">
+                        <!-- Populated dynamically by openEvalReportModal -->
+                    </div>
+
+                    <div class="flex justify-end pt-2 border-t border-gray-100">
+                        <button onclick="window.aegis.closeEvalReportModal()" class="btn-secondary px-4 py-1.5 bg-white border border-gray-200 text-xs text-gray-700 hover:text-gray-900 rounded-lg shadow-sm">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: CASE DETAIL -->
+            <div id="view-case-detail" class="space-y-6 hidden">
+                <div class="flex justify-between items-center">
+                    <button onclick="window.aegis.switchTab('worklist')" class="flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-700 font-medium transition-colors">
+                        <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                        Back to Worklist
+                    </button>
+                </div>
+                <div id="case-detail-content"></div>
+            </div>
+
+            <!-- VIEW: AUDIT LOGS -->
+            <div id="view-audit" class="space-y-6 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                    <div class="p-4 bg-gray-50/80 border-b border-gray-200">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-900">System Audit Trail</h3>
+                    </div>
+                    <table class="w-full text-left border-collapse text-xs">
+                        <tbody id="audit-table-body" class="divide-y divide-gray-100"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VIEW: AEGIS DNA (CONFIG) -->
+            <div id="view-dna" class="space-y-6 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
+                    <div class="p-4 bg-gray-50/80 border-b border-gray-200">
+                        <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-900">Dispute Reason Codes & Guidelines</h3>
+                    </div>
+                    <table class="w-full text-left border-collapse text-xs">
+                        <tbody id="dna-table-body" class="divide-y divide-gray-100"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- RICH FORM-BASED DISPUTE CREATOR MODAL -->
+    <div id="sim-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white border border-gray-200 rounded-xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-white">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
+                        <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-900">Add Dispute Case</h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Configure dispute parameters and run automated policy checks.</p>
+                    </div>
+                </div>
+                <button onclick="window.aegis.closeSimModal()" class="p-1 rounded-md hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable Form) -->
+            <div class="p-6 overflow-y-auto space-y-5 text-xs">
+                
+                <!-- Quick Preset Chips -->
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase tracking-wider text-gray-500 mb-2">Scenario Presets</label>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" onclick="window.aegis.applyFormPreset('clean_contest')" class="preset-chip px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 text-xs font-medium flex items-center gap-1.5 cursor-pointer shadow-sm">
+                            <span>🛡️ Ready to Contest (10.4)</span>
+                        </button>
+                        <button type="button" onclick="window.aegis.applyFormPreset('not_received')" class="preset-chip px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 text-xs font-medium flex items-center gap-1.5 cursor-pointer shadow-sm">
+                            <span>📦 Not Received (13.1)</span>
+                        </button>
+                        <button type="button" onclick="window.aegis.applyFormPreset('contradiction')" class="preset-chip px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 text-xs font-medium flex items-center gap-1.5 cursor-pointer shadow-sm">
+                            <span>⚠️ High Risk History (3 Flags)</span>
+                        </button>
+                        <button type="button" onclick="window.aegis.applyFormPreset('high_value')" class="preset-chip px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 text-xs font-medium flex items-center gap-1.5 cursor-pointer shadow-sm">
+                            <span>🚨 High-Value ($15.4k)</span>
+                        </button>
+                        <button type="button" onclick="window.aegis.applyFormPreset('missing_gaps')" class="preset-chip px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 text-xs font-medium flex items-center gap-1.5 cursor-pointer shadow-sm">
+                            <span>❌ Incomplete Evidence (<75%)</span>
+                        </button>
+                        <button type="button" onclick="window.aegis.applyFormPreset('unknown_code')" class="preset-chip px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-200 text-gray-700 hover:text-gray-900 text-xs font-medium flex items-center gap-1.5 cursor-pointer shadow-sm">
+                            <span>❓ Unrecognized Code</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Section 1: Transaction & Dispute Metadata -->
+                <div class="bg-gray-50/60 p-4 rounded-xl border border-gray-200 space-y-3">
+                    <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-900 flex items-center gap-1.5">
+                        <span class="material-symbols-outlined text-[16px] text-blue-600">receipt_long</span>
+                        1. Transaction & Dispute Details
+                    </h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-[11px] text-gray-600 font-medium mb-1">Dispute / Case ID</label>
+                            <input id="form-case-id" type="text" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-900 font-mono focus:border-blue-600 focus:outline-none transition-all shadow-sm"/>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-gray-600 font-medium mb-1">Reason Code</label>
+                            <select id="form-reason-code" onchange="window.aegis.onFormReasonCodeChange()" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-900 font-medium focus:border-blue-600 focus:outline-none transition-all shadow-sm">
+                                <option value="10.4">10.4 · Visa (4837 MC) — Card-Absent Fraud</option>
+                                <option value="13.1">13.1 · Visa (4855 MC) — Merchandise Not Received</option>
+                                <option value="13.3">13.3 · Visa (4853 MC) — Defective / Not as Described</option>
+                                <option value="12.6.1">12.6.1 · Visa (4834 MC) — Duplicate Processing</option>
+                                <option value="13.6">13.6 · Visa (4859 MC) — Credit Not Processed</option>
+                                <option value="13.2">13.2 · Visa (4841 MC) — Canceled Recurring</option>
+                                <option value="99.9_UNKNOWN">99.9_UNKNOWN — Unrecognized Reason Code</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-gray-600 font-medium mb-1">Transaction Amount ($)</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-2 text-gray-400 text-xs">$</span>
+                                <input id="form-amount" type="number" step="0.01" value="850.00" class="w-full bg-white border border-gray-200 rounded-lg pl-7 pr-3 py-2 text-xs text-gray-900 focus:border-blue-600 focus:outline-none transition-all shadow-sm"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-[11px] text-gray-600 font-medium mb-1">Customer ID / Name</label>
+                            <input id="form-customer-id" type="text" value="cust_101" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-blue-600 focus:outline-none transition-all shadow-sm"/>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-gray-600 font-medium mb-1">Dispute Deadline</label>
+                            <input id="form-deadline" type="date" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-blue-600 focus:outline-none transition-all shadow-sm"/>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-gray-600 font-medium mb-1">
+                                Prior Fraud Flags
+                                <span class="text-[10px] text-amber-600 font-normal">(≥2 forces manual review)</span>
+                            </label>
+                            <input id="form-fraud-flags" type="number" min="0" max="10" value="0" class="w-full bg-white border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-900 focus:border-blue-600 focus:outline-none transition-all shadow-sm"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Canonical Evidence Checklist & Artifact Values -->
+                <div class="bg-gray-50/60 p-4 rounded-xl border border-gray-200 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-900 flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-[16px] text-blue-600">inventory_2</span>
+                            2. Merchant Evidence & Documentation
+                        </h4>
+                        <span id="evidence-completeness-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            Completeness: 100%
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-500">Check required proof items as Present or Missing and review merchant values:</p>
+                    
+                    <!-- Dynamic Evidence Items Container -->
+                    <div id="form-evidence-items-container" class="space-y-2.5"></div>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex justify-between items-center px-6 py-3.5 border-t border-gray-100 bg-white">
+                <div class="text-xs text-gray-500 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-emerald-600 text-[16px]">verified_user</span>
+                    <span>Automated Policy Checks Enabled</span>
+                </div>
+                <div class="flex gap-2.5">
+                    <button type="button" onclick="window.aegis.closeSimModal()" class="btn-secondary px-3.5 py-2 text-xs font-medium text-gray-700 hover:text-gray-900 rounded-lg border border-gray-200 bg-white cursor-pointer shadow-sm">Cancel</button>
+                    <button type="button" onclick="window.aegis.submitCustomDisputeForm()" id="btn-submit-dispute-form" class="btn-primary px-4 py-2 font-semibold text-xs rounded-lg flex items-center gap-2 cursor-pointer shadow-sm">
+                        <span class="material-symbols-outlined text-[16px]">play_circle</span>
+                        <span>Run Checks & Add Dispute</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIPELINE EXECUTION STEPPER MODAL (REAL-TIME ANALYSIS PROGRESSION) -->
+    <div id="pipeline-stepper-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white border border-gray-200 rounded-xl w-full max-w-lg p-6 space-y-5 shadow-2xl animate-fadeIn">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
+                        <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-900">Running Risk Analysis</h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Evaluating evidence completeness and generating response...</p>
+                    </div>
+                </div>
+                <span id="stepper-percentage" class="text-xs font-semibold text-blue-600">0%</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
+                <div id="stepper-progress-bar" class="bg-primary h-1.5 rounded-full transition-all duration-300 w-0"></div>
+            </div>
+
+            <!-- 5-Step Pipeline Live Checklist -->
+            <div class="space-y-2.5 text-xs">
+                <!-- Step 1 -->
+                <div id="step-status-1" class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-200 transition-colors">
+                    <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-[16px] text-gray-400 step-icon">radio_button_unchecked</span>
+                        <span class="font-medium text-gray-800 step-title">Step 1: Dispute Category Match</span>
+                    </div>
+                    <span class="text-[11px] text-gray-500 step-detail">Matching network rules...</span>
+                </div>
+
+                <!-- Step 2 -->
+                <div id="step-status-2" class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-200 transition-colors">
+                    <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-[16px] text-gray-400 step-icon">radio_button_unchecked</span>
+                        <span class="font-medium text-gray-800 step-title">Step 2: Evidence Verification</span>
+                    </div>
+                    <span class="text-[11px] text-gray-500 step-detail">Checking merchant records...</span>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="step-status-3" class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-200 transition-colors">
+                    <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-[16px] text-gray-400 step-icon">radio_button_unchecked</span>
+                        <span class="font-medium text-gray-800 step-title">Step 3: Evidence Completeness Score</span>
+                    </div>
+                    <span class="text-[11px] text-gray-500 step-detail">Calculating win-rate score...</span>
+                </div>
+
+                <!-- Step 4 -->
+                <div id="step-status-4" class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-200 transition-colors">
+                    <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-[16px] text-gray-400 step-icon">radio_button_unchecked</span>
+                        <span class="font-medium text-gray-800 step-title">Step 4: Safety & Policy Guardrails</span>
+                    </div>
+                    <span class="text-[11px] text-gray-500 step-detail">Checking ceiling & fraud limits...</span>
+                </div>
+
+                <!-- Step 5 -->
+                <div id="step-status-5" class="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 border border-gray-200 transition-colors">
+                    <div class="flex items-center gap-2.5">
+                        <span class="material-symbols-outlined text-[16px] text-gray-400 step-icon">radio_button_unchecked</span>
+                        <span class="font-medium text-gray-800 step-title">Step 5: AI Rebuttal Generator</span>
+                    </div>
+                    <span class="text-[11px] text-gray-500 step-detail">Drafting structured response letter...</span>
+                </div>
+            </div>
+
+            <!-- Pipeline Log Subtitle -->
+            <div id="stepper-log-text" class="text-xs text-center text-blue-600 font-medium">
+                Running risk checks and evidence analysis...
+            </div>
+        </div>
+    </div>
+
+    <!-- TWO-STEP EVIDENCE PREPARATION MODAL (PRD §3.5) -->
+    <div id="packet-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white border border-gray-200 rounded-xl w-full max-w-xl p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-blue-600 text-[18px]">verified</span>
+                    Review & Submit Counter-Evidence
+                </h3>
+                <button onclick="window.aegis.closePacketModal()" class="p-1 rounded-md text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+            </div>
+            
+            <div id="packet-modal-content"></div>
+
+            <div class="flex justify-end gap-2.5 pt-3 border-t border-gray-100">
+                <button onclick="window.aegis.closePacketModal()" class="btn-secondary px-3.5 py-1.5 text-xs text-gray-700 hover:text-gray-900 rounded-lg border border-gray-200 bg-white cursor-pointer shadow-sm">Cancel</button>
+                <button onclick="window.aegis.submitPacketFinal()" class="btn-primary px-4 py-1.5 font-semibold text-xs rounded-lg flex items-center gap-1.5 cursor-pointer shadow-sm">
+                    <span class="material-symbols-outlined text-[16px]">send</span>
+                    Submit Counter-Proof
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modular JS App Entrypoint -->
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>
