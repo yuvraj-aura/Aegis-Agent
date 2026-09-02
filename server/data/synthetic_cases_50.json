@@ -1,0 +1,1038 @@
+[
+  {
+    "chargeback_id": "SYN-001-STRONG",
+    "test_name": "Visa 10.4 CNP Fraud - Complete Evidence Match",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_001",
+    "amount": 249.99,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-20",
+    "customer_id": "cust_syn_001",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Match (Y), CVV2 Match (M)",
+      "device_ip_match": "198.51.100.42 (Customer Device Fingerprint Verified)",
+      "prior_order_history": "8 previous successful orders across 14 months",
+      "customer_comm_log": "Ticket #4491: Customer acknowledged shipping to registered address",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-002-STRONG",
+    "test_name": "Visa 13.1 Goods Not Received - Full Delivery Proof",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_002",
+    "amount": 89.50,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-18",
+    "customer_id": "cust_syn_002",
+    "raw_transaction_data": {
+      "delivery_tracking": "USPS 9400111899562549301928",
+      "carrier_delivery_confirmation": "Delivered in/at Mailbox at 14:22 on 2026-08-28",
+      "customer_comm_log": "Automated delivery confirmation email opened by recipient",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-003-STRONG",
+    "test_name": "Visa 13.3 Defective/Not as Described - Complete Terms & Listing",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_003",
+    "amount": 420.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-25",
+    "customer_id": "cust_syn_003",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "SKU-9902 Specifications, High-Res Photos, Model Specs",
+      "delivery_confirmation": "FedEx Direct Signature Signed by Customer",
+      "customer_comm_log": "Support chat: Customer acknowledged item matched catalog specs",
+      "return_policy_ack": "Checkbox clicked at checkout: 30-day unopened return policy",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-004-STRONG",
+    "test_name": "Visa 12.6.1 Duplicate Processing - Single Charge Verified",
+    "reason_code": "12.6.1",
+    "transaction_id": "txn_syn_004",
+    "amount": 135.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-14",
+    "customer_id": "cust_syn_004",
+    "raw_transaction_data": {
+      "transaction_log": "Unique Auth Code #992120; Separate distinct order ID #ORD-8821",
+      "avs_cvv_match": "AVS Y, CVV M",
+      "customer_comm_log": "Invoice sent for distinct digital item purchase",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-005-STRONG",
+    "test_name": "Visa 13.6 Credit Not Processed - Complete Policy Ack",
+    "reason_code": "13.6",
+    "transaction_id": "txn_syn_005",
+    "amount": 310.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-22",
+    "customer_id": "cust_syn_005",
+    "raw_transaction_data": {
+      "refund_policy_ack": "Terms agreed: Custom fabricated items are non-refundable",
+      "cancellation_terms": "Signed contract §4: Final Sale upon manufacturing start",
+      "customer_comm_log": "Customer informed of non-refundable custom build progress",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-006-STRONG",
+    "test_name": "Mastercard 4837 CNP Fraud - Complete Verification",
+    "reason_code": "4837",
+    "transaction_id": "txn_syn_006",
+    "amount": 550.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-19",
+    "customer_id": "cust_syn_006",
+    "raw_transaction_data": {
+      "avs_cvv_match": "Full Street & Postal Code Match (AVS X), CVC2 Match",
+      "device_ip_match": "Residential ISP, Lat/Long matches billing address",
+      "prior_order_history": "5 verified deliveries to same address",
+      "customer_comm_log": "Order update SMS delivered to cardholder mobile",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-007-STRONG",
+    "test_name": "Mastercard 4855 Goods Not Received - Full Proof",
+    "reason_code": "4855",
+    "transaction_id": "txn_syn_007",
+    "amount": 199.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-21",
+    "customer_id": "cust_syn_007",
+    "raw_transaction_data": {
+      "delivery_tracking": "UPS 1Z9999999999999999",
+      "carrier_delivery_confirmation": "Signed by J. DOE at front reception",
+      "customer_comm_log": "Delivery alert sent via push notification",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-008-STRONG",
+    "test_name": "Visa 10.4 CNP Fraud - 3DS & AVS Pass",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_008",
+    "amount": 1250.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-16",
+    "customer_id": "cust_syn_008",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M, 3D Secure Authenticated",
+      "device_ip_match": "Verified Secure Device Token #8841",
+      "prior_order_history": "Loyalty Member since 2024 (22 transactions)",
+      "customer_comm_log": "Email confirmation delivered and viewed",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-009-STRONG",
+    "test_name": "Visa 13.1 Delivery Proof - Signature on File",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_009",
+    "amount": 780.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-27",
+    "customer_id": "cust_syn_009",
+    "raw_transaction_data": {
+      "delivery_tracking": "DHL Express 4410928190",
+      "carrier_delivery_confirmation": "Proof of delivery signature image attached",
+      "customer_comm_log": "Customer acknowledged package receipt in support ticket",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-010-STRONG",
+    "test_name": "Visa 13.3 Goods Described - Full Documentation",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_010",
+    "amount": 610.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-24",
+    "customer_id": "cust_syn_010",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "Product catalog specs & condition grading certificate",
+      "delivery_confirmation": "Carrier confirmation with GPS coordinates match",
+      "customer_comm_log": "Email discussion regarding item usage instructions",
+      "return_policy_ack": "Customer checked return policy agreement",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-011-STRONG",
+    "test_name": "Visa 12.6.1 Processing Dispute - Distinct Txn Records",
+    "reason_code": "12.6.1",
+    "transaction_id": "txn_syn_011",
+    "amount": 45.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-11",
+    "customer_id": "cust_syn_011",
+    "raw_transaction_data": {
+      "transaction_log": "Different item SKUs billed 4 hours apart with distinct carts",
+      "avs_cvv_match": "AVS Y, CVV M",
+      "customer_comm_log": "Two distinct receipts sent to customer email",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-012-STRONG",
+    "test_name": "Visa 13.6 Credit Not Processed - Merchant Policy Upheld",
+    "reason_code": "13.6",
+    "transaction_id": "txn_syn_012",
+    "amount": 540.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-29",
+    "customer_id": "cust_syn_012",
+    "raw_transaction_data": {
+      "refund_policy_ack": "No refunds after 14 days; chargeback filed on day 45",
+      "cancellation_terms": "Clear cancellation cutoff documented at checkout",
+      "customer_comm_log": "Merchant provided store credit code per terms",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-013-STRONG",
+    "test_name": "Visa 10.4 CNP Fraud - Complete Evidence",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_013",
+    "amount": 340.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-17",
+    "customer_id": "cust_syn_013",
+    "raw_transaction_data": {
+      "avs_cvv_match": "Full AVS & CVV Match",
+      "device_ip_match": "Device recognized from previous 4 sessions",
+      "prior_order_history": "7 successful orders",
+      "customer_comm_log": "Customer tracking status check from verified mobile",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-014-STRONG",
+    "test_name": "Visa 13.1 Delivered to Parcel Locker",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_014",
+    "amount": 115.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-19",
+    "customer_id": "cust_syn_014",
+    "raw_transaction_data": {
+      "delivery_tracking": "Amazon Logistics TBA99182310",
+      "carrier_delivery_confirmation": "Delivered to Amazon Locker with pickup PIN used",
+      "customer_comm_log": "Automated pickup notification delivered",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-015-STRONG",
+    "test_name": "Visa 13.3 Described Goods - Full Evidence",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_015",
+    "amount": 890.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-26",
+    "customer_id": "cust_syn_015",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "Apparel sizing chart & fabric composition breakdown",
+      "delivery_confirmation": "Carrier confirmation of delivery to cardholder address",
+      "customer_comm_log": "Support chat explaining exchange eligibility",
+      "return_policy_ack": "Acknowledged terms at checkout",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-016-STRONG",
+    "test_name": "Mastercard 4834 Duplicate Processing - Resolved",
+    "reason_code": "4834",
+    "transaction_id": "txn_syn_016",
+    "amount": 75.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-13",
+    "customer_id": "cust_syn_016",
+    "raw_transaction_data": {
+      "transaction_log": "Two distinct subscriptions for different team members",
+      "avs_cvv_match": "AVS Y, CVV M",
+      "customer_comm_log": "Admin account creation emails sent to both users",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-017-STRONG",
+    "test_name": "Visa 10.4 CNP Fraud - Complete Evidence",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_017",
+    "amount": 160.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-15",
+    "customer_id": "cust_syn_017",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "device_ip_match": "Same IP as regular monthly logins",
+      "prior_order_history": "12 previous orders",
+      "customer_comm_log": "Password reset and order confirmed by SMS",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-018-STRONG",
+    "test_name": "Visa 13.1 Express Delivery - Signed",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_018",
+    "amount": 920.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-28",
+    "customer_id": "cust_syn_018",
+    "raw_transaction_data": {
+      "delivery_tracking": "FedEx Priority 7728109920",
+      "carrier_delivery_confirmation": "Direct signature obtained from cardholder",
+      "customer_comm_log": "Delivery time slot confirmed via WhatsApp notification",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-019-STRONG",
+    "test_name": "Visa 13.3 Electronics Described - Full Audit",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_019",
+    "amount": 1400.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-23",
+    "customer_id": "cust_syn_019",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "Serial number tracking, factory seal photos",
+      "delivery_confirmation": "Signed delivery receipt by recipient",
+      "customer_comm_log": "Warranty activation email registered by customer",
+      "return_policy_ack": "Terms accepted at point of sale",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-020-STRONG",
+    "test_name": "Visa 13.6 Credit Terms Upheld - Full Match",
+    "reason_code": "13.6",
+    "transaction_id": "txn_syn_020",
+    "amount": 280.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-30",
+    "customer_id": "cust_syn_020",
+    "raw_transaction_data": {
+      "refund_policy_ack": "Clear non-refundable event ticket policy",
+      "cancellation_terms": "No cancellations within 7 days of event",
+      "customer_comm_log": "Ticket barcode scanned at venue gate",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-021-STRONG",
+    "test_name": "Visa 10.4 Digital Goods - Complete Records",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_021",
+    "amount": 60.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-12",
+    "customer_id": "cust_syn_021",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "device_ip_match": "Account logged in from home network",
+      "prior_order_history": "10 game credit purchases in past 6 months",
+      "customer_comm_log": "Receipt sent to verified email",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-022-STRONG",
+    "test_name": "Visa 13.1 Hardware Delivery - Full Proof",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_022",
+    "amount": 320.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-22",
+    "customer_id": "cust_syn_022",
+    "raw_transaction_data": {
+      "delivery_tracking": "USPS 9205590164917300",
+      "carrier_delivery_confirmation": "Delivered to front porch, photo verified",
+      "customer_comm_log": "Customer confirmed address prior to dispatch",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-023-STRONG",
+    "test_name": "Visa 13.3 Described Merchandise - Full Listing Specs",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_023",
+    "amount": 475.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-24",
+    "customer_id": "cust_syn_023",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "Complete technical specifications document",
+      "delivery_confirmation": "Carrier confirmation of delivery",
+      "customer_comm_log": "Support ticket acknowledging setup complete",
+      "return_policy_ack": "Policy acknowledged",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-024-STRONG",
+    "test_name": "Visa 12.6.1 Double Billing Claim - Distinct Services",
+    "reason_code": "12.6.1",
+    "transaction_id": "txn_syn_024",
+    "amount": 150.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-17",
+    "customer_id": "cust_syn_024",
+    "raw_transaction_data": {
+      "transaction_log": "Service Month August vs Service Month September billing",
+      "avs_cvv_match": "AVS Y, CVV M",
+      "customer_comm_log": "Monthly invoice statements delivered",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-025-STRONG",
+    "test_name": "Visa 13.6 Credit Terms Dispute - Refund Policy Bound",
+    "reason_code": "13.6",
+    "transaction_id": "txn_syn_025",
+    "amount": 210.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-29",
+    "customer_id": "cust_syn_025",
+    "raw_transaction_data": {
+      "refund_policy_ack": "Digital software download policy: Non-refundable once activated",
+      "cancellation_terms": "License key redemption terms agreed",
+      "customer_comm_log": "License key successfully activated on client server",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-026-STRONG",
+    "test_name": "Mastercard 4837 Clean Case - Full Evidence",
+    "reason_code": "4837",
+    "transaction_id": "txn_syn_026",
+    "amount": 490.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-18",
+    "customer_id": "cust_syn_026",
+    "raw_transaction_data": {
+      "avs_cvv_match": "Full AVS & CVV match",
+      "device_ip_match": "Customer IP matches billing location",
+      "prior_order_history": "6 prior transactions",
+      "customer_comm_log": "Email confirmation delivered",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-027-STRONG",
+    "test_name": "Mastercard 4853 Clean Case - Full Evidence",
+    "reason_code": "4853",
+    "transaction_id": "txn_syn_027",
+    "amount": 380.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-21",
+    "customer_id": "cust_syn_027",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "Complete product catalog snapshot and condition report",
+      "delivery_confirmation": "Carrier confirmation of delivery",
+      "customer_comm_log": "Support correspondence confirming delivery",
+      "return_policy_ack": "Return terms accepted",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-028-STRONG",
+    "test_name": "Visa 10.4 High Confidence - Full Match",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_028",
+    "amount": 720.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-16",
+    "customer_id": "cust_syn_028",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "device_ip_match": "Known device signature",
+      "prior_order_history": "9 completed orders",
+      "customer_comm_log": "Order update SMS delivered",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-029-STRONG",
+    "test_name": "Visa 13.1 Package Delivery - Full Proof",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_029",
+    "amount": 260.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-25",
+    "customer_id": "cust_syn_029",
+    "raw_transaction_data": {
+      "delivery_tracking": "FedEx 88192039182",
+      "carrier_delivery_confirmation": "Signed by cardholder",
+      "customer_comm_log": "Email confirmation opened",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-030-STRONG",
+    "test_name": "Visa 13.3 Described Goods - Full Proof",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_030",
+    "amount": 350.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-27",
+    "customer_id": "cust_syn_030",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "Detailed listing snapshot with high-res photos",
+      "delivery_confirmation": "Carrier confirmation on file",
+      "customer_comm_log": "Support chat record",
+      "return_policy_ack": "Return policy acknowledged",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+  {
+    "chargeback_id": "SYN-031-STRONG",
+    "test_name": "Visa 10.4 Retail Order - Full Match",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_031",
+    "amount": 410.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-14",
+    "customer_id": "cust_syn_031",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "device_ip_match": "Device IP verified",
+      "prior_order_history": "11 prior orders",
+      "customer_comm_log": "Order confirmation email sent",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "CONTEST",
+    "expected_rule": "NONE",
+    "ground_truth": "CONTEST",
+    "category_type": "strong_evidence"
+  },
+
+  {
+    "chargeback_id": "SYN-032-WEAK",
+    "test_name": "Visa 10.4 Missing Device IP & History (Completeness 50%)",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_032",
+    "amount": 310.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-15",
+    "customer_id": "cust_syn_032",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "customer_comm_log": "Order confirmation email",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-033-WEAK",
+    "test_name": "Visa 13.1 Missing Carrier Confirmation (Completeness 33%)",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_033",
+    "amount": 145.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-12",
+    "customer_id": "cust_syn_033",
+    "raw_transaction_data": {
+      "delivery_tracking": "USPS 940019283102",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-034-WEAK",
+    "test_name": "Visa 13.3 Missing Delivery & Policy Ack (Completeness 50%)",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_034",
+    "amount": 520.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-22",
+    "customer_id": "cust_syn_034",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "Product listing screenshot",
+      "customer_comm_log": "Support ticket",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-035-WEAK",
+    "test_name": "Visa 12.6.1 Missing Transaction Log (Completeness 67%)",
+    "reason_code": "12.6.1",
+    "transaction_id": "txn_syn_035",
+    "amount": 80.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-18",
+    "customer_id": "cust_syn_035",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "customer_comm_log": "Email receipt",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-036-WEAK",
+    "test_name": "Visa 13.6 Missing Policy Ack & Cancellation Terms (Completeness 33%)",
+    "reason_code": "13.6",
+    "transaction_id": "txn_syn_036",
+    "amount": 290.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-26",
+    "customer_id": "cust_syn_036",
+    "raw_transaction_data": {
+      "customer_comm_log": "Email thread",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-037-WEAK",
+    "test_name": "Mastercard 4837 Missing Prior Orders & Comm (Completeness 50%)",
+    "reason_code": "4837",
+    "transaction_id": "txn_syn_037",
+    "amount": 610.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-19",
+    "customer_id": "cust_syn_037",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "device_ip_match": "IP match",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-038-WEAK",
+    "test_name": "Visa 13.1 Missing All Delivery Tracking (Completeness 33%)",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_038",
+    "amount": 95.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-11",
+    "customer_id": "cust_syn_038",
+    "raw_transaction_data": {
+      "customer_comm_log": "Support chat regarding estimated dispatch",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-039-WEAK",
+    "test_name": "Visa 13.3 Missing 3 out of 4 Fields (Completeness 25%)",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_039",
+    "amount": 340.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-20",
+    "customer_id": "cust_syn_039",
+    "raw_transaction_data": {
+      "delivery_confirmation": "Carrier confirmation",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-040-WEAK",
+    "test_name": "Visa 10.4 Completely Empty Evidence (Completeness 0%)",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_040",
+    "amount": 180.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-14",
+    "customer_id": "cust_syn_040",
+    "raw_transaction_data": {
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-041-WEAK",
+    "test_name": "Visa 13.6 Missing Cancellation Terms (Completeness 67%)",
+    "reason_code": "13.6",
+    "transaction_id": "txn_syn_041",
+    "amount": 450.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-28",
+    "customer_id": "cust_syn_041",
+    "raw_transaction_data": {
+      "refund_policy_ack": "Policy acknowledged",
+      "customer_comm_log": "Support chat",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-042-WEAK",
+    "test_name": "Visa 12.6.1 Only AVS Present (Completeness 33%)",
+    "reason_code": "12.6.1",
+    "transaction_id": "txn_syn_042",
+    "amount": 120.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-17",
+    "customer_id": "cust_syn_042",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-043-WEAK",
+    "test_name": "Mastercard 4855 Only Comm Log Present (Completeness 33%)",
+    "reason_code": "4855",
+    "transaction_id": "txn_syn_043",
+    "amount": 210.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-23",
+    "customer_id": "cust_syn_043",
+    "raw_transaction_data": {
+      "customer_comm_log": "Email confirmation",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+  {
+    "chargeback_id": "SYN-044-WEAK",
+    "test_name": "Visa 10.4 Only Order History Present (Completeness 25%)",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_044",
+    "amount": 390.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-16",
+    "customer_id": "cust_syn_044",
+    "raw_transaction_data": {
+      "prior_order_history": "2 orders",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "INSUFFICIENT_EVIDENCE",
+    "ground_truth": "ESCALATE",
+    "category_type": "weak_evidence"
+  },
+
+  {
+    "chargeback_id": "SYN-045-EDGE",
+    "test_name": "High Value Breach ($12,500 >= $10,000 auto-ceiling)",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_045",
+    "amount": 12500.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-10",
+    "customer_id": "cust_syn_045",
+    "raw_transaction_data": {
+      "avs_cvv_match": "Full AVS & CVV Match",
+      "device_ip_match": "Device Match",
+      "prior_order_history": "14 orders",
+      "customer_comm_log": "Support chat verified",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "HIGH_VALUE_CEILING",
+    "ground_truth": "ESCALATE",
+    "category_type": "edge_case"
+  },
+  {
+    "chargeback_id": "SYN-046-EDGE",
+    "test_name": "High Value Breach ($25,000 >= $10,000 auto-ceiling)",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_046",
+    "amount": 25000.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-15",
+    "customer_id": "cust_syn_046",
+    "raw_transaction_data": {
+      "delivery_tracking": "FedEx Freight 99201928",
+      "carrier_delivery_confirmation": "Signed bill of lading",
+      "customer_comm_log": "Confirmed via phone",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "HIGH_VALUE_CEILING",
+    "ground_truth": "ESCALATE",
+    "category_type": "edge_case"
+  },
+  {
+    "chargeback_id": "SYN-047-EDGE",
+    "test_name": "Prior Fraud Contradiction (4 Prior Fraud Flags on File)",
+    "reason_code": "13.1",
+    "transaction_id": "txn_syn_047",
+    "amount": 340.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-18",
+    "customer_id": "cust_syn_047",
+    "raw_transaction_data": {
+      "delivery_tracking": "FedEx 4491029102",
+      "carrier_delivery_confirmation": "Signed on porch",
+      "customer_comm_log": "Email acknowledgment",
+      "prior_fraud_flags": 4
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "PRIOR_FRAUD_CONTRADICTION",
+    "ground_truth": "ESCALATE",
+    "category_type": "edge_case"
+  },
+  {
+    "chargeback_id": "SYN-048-EDGE",
+    "test_name": "Prior Fraud Contradiction (2 Prior Fraud Flags on File)",
+    "reason_code": "10.4",
+    "transaction_id": "txn_syn_048",
+    "amount": 580.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-22",
+    "customer_id": "cust_syn_048",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "device_ip_match": "Device match",
+      "prior_order_history": "8 orders",
+      "customer_comm_log": "Order update SMS",
+      "prior_fraud_flags": 2
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "PRIOR_FRAUD_CONTRADICTION",
+    "ground_truth": "ESCALATE",
+    "category_type": "edge_case"
+  },
+  {
+    "chargeback_id": "SYN-049-EDGE",
+    "test_name": "Unknown Reason Code (Legacy Visa 99.9_INVALID)",
+    "reason_code": "99.9_INVALID",
+    "transaction_id": "txn_syn_049",
+    "amount": 180.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-12",
+    "customer_id": "cust_syn_049",
+    "raw_transaction_data": {
+      "delivery_tracking": "USPS 9400192831",
+      "customer_comm_log": "Support inquiry",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "UNKNOWN_REASON_CODE",
+    "ground_truth": "ESCALATE",
+    "category_type": "edge_case"
+  },
+  {
+    "chargeback_id": "SYN-050-EDGE",
+    "test_name": "Unknown Reason Code (Non-standard Code 88.0)",
+    "reason_code": "88.0",
+    "transaction_id": "txn_syn_050",
+    "amount": 420.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-25",
+    "customer_id": "cust_syn_050",
+    "raw_transaction_data": {
+      "avs_cvv_match": "AVS Y, CVV M",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "UNKNOWN_REASON_CODE",
+    "ground_truth": "ESCALATE",
+    "category_type": "edge_case"
+  },
+  {
+    "chargeback_id": "SYN-051-EDGE",
+    "test_name": "High Value Breach ($18,000 >= $10,000 auto-ceiling)",
+    "reason_code": "13.3",
+    "transaction_id": "txn_syn_051",
+    "amount": 18000.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-28",
+    "customer_id": "cust_syn_051",
+    "raw_transaction_data": {
+      "product_listing_snapshot": "Commercial machinery listing specs",
+      "delivery_confirmation": "Freight delivery BOL signed",
+      "customer_comm_log": "On-site engineer installation signoff",
+      "return_policy_ack": "Commercial terms signed",
+      "prior_fraud_flags": 0
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "HIGH_VALUE_CEILING",
+    "ground_truth": "ESCALATE",
+    "category_type": "edge_case"
+  },
+  {
+    "chargeback_id": "SYN-052-EDGE",
+    "test_name": "Prior Fraud Contradiction (3 Prior Fraud Flags)",
+    "reason_code": "13.6",
+    "transaction_id": "txn_syn_052",
+    "amount": 490.00,
+    "currency": "USD",
+    "dispute_deadline": "2026-09-27",
+    "customer_id": "cust_syn_052",
+    "raw_transaction_data": {
+      "refund_policy_ack": "Policy acknowledged",
+      "cancellation_terms": "Cancellation terms agreed",
+      "customer_comm_log": "Chat logs",
+      "prior_fraud_flags": 3
+    },
+    "expected_action": "ESCALATE_TO_HUMAN",
+    "expected_rule": "PRIOR_FRAUD_CONTRADICTION",
+    "ground_truth": "ESCALATE",
+    "category_type": "edge_case"
+  }
+]
