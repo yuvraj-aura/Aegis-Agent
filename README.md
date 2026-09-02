@@ -32,7 +32,7 @@ Aegis is architected with non-negotiable mathematical and operational guardrails
 1. **Deterministic Steps 1–4 (Pure Code / Zero LLM)**:
    - **Step 1 (Classifier)**: Exact $O(1)$ schema lookup against canonical payment network taxonomy (Visa/Mastercard reason codes). Zero fuzzy matching.
    - **Step 2 (Retriever)**: Isolates and extracts **only** required fields defined by the schema. Raw extraneous merchant data is never leaked.
-   - **Step 3 (Scorer)**: Arithmetic completeness computation: $\frac{\text{present\_fields}}{\text{required\_fields}}$. Pure deterministic math.
+   - **Step 3 (Scorer)**: Arithmetic completeness computation: `present_fields / required_fields`. Pure deterministic math.
    - **Step 4 (Failsafe Gates)**: Hardcoded deterministic checks execute **before** any LLM is invoked:
      - `HIGH_VALUE_CEILING`: Amount $\ge \$10,000.00 \rightarrow$ Mandatory human review.
      - `PRIOR_FRAUD_CONTRADICTION`: Customer prior fraud flags $\ge 2 \rightarrow$ Immediate escalation.
@@ -160,32 +160,3 @@ python test_drafter.py
 | `http://localhost:8001/draft-rationale` | `POST` | Isolated Python ADK Drafter endpoint |
 | `http://localhost:8001/health` | `GET` | Drafter microservice health probe |
 
----
-
-## 📁 Repository Structure
-
-```text
-├── drafter_service/
-│   ├── agent.py               # Google GenAI / ADK isolated Drafter agent & strict schema
-│   ├── server.py              # FastAPI microservice on port 8001 (POST /draft-rationale)
-│   ├── requirements.txt       # Frozen Python dependencies
-│   ├── .env                   # Environment config (GOOGLE_API_KEY, PORT)
-│   └── test_drafter.py        # Microservice isolation verification script
-│
-├── server/
-│   ├── data/
-│   │   └── synthetic_cases_50.json   # 52 synthetic cases with ground-truth labels
-│   ├── public/                # Frontend UI dashboard & Risk Command Center
-│   ├── audit_store.json       # Immutable JSON database & audit log persistence
-│   ├── config.js              # Network taxonomy & failsafe gate constants
-│   ├── db.js                  # AuditStore database layer & CRUD methods
-│   ├── eval.js                # Core 5-case failure injection test suite
-│   ├── pipeline.js            # 5-step deterministic Aegis workflow engine
-│   ├── reason_codes.json      # Canonical Visa / Mastercard reason code schemas
-│   ├── run_batch_eval.js      # 52-case batch benchmark runner
-│   ├── server.js              # Node.js backend HTTP server on port 8000
-│   ├── test_e2e_frontend_flow.js        # 34-point end-to-end verification
-│   └── verify_acceptance_criteria.js   # Reproducibility & anti-hallucination audit
-│
-└── README.md                  # Judge's Runbook & architectural documentation
-```
